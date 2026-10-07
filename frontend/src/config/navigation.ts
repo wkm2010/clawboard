@@ -1,3 +1,4 @@
+import { t } from '../i18n/translate';
 import { 
   Home, 
   ListTodo, 
@@ -59,8 +60,8 @@ export interface NavGroupMeta {
 }
 
 export const navGroups: NavGroupMeta[] = [
-  { id: 'main', label: 'Main', icon: Home, collapsible: false, defaultCollapsed: false, order: 0 },
-  { id: 'workspace', label: 'Workspace', icon: Briefcase, collapsible: true, defaultCollapsed: false, order: 1 },
+  { id: 'main', label: t('Main'), icon: Home, collapsible: false, defaultCollapsed: false, order: 0 },
+  { id: 'workspace', label: t('Workspace'), icon: Briefcase, collapsible: true, defaultCollapsed: false, order: 1 },
 ];
 
 /**
@@ -72,7 +73,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'dashboard',
     path: '/',
-    label: 'Dashboard',
+    label: t('Dashboard'),
     icon: Home,
     showInSidebar: true,
     showInHero: false,
@@ -82,7 +83,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'sessions',
     path: '/sessions',
-    label: 'Sessions',
+    label: t('Sessions'),
     icon: Radio,
     showInSidebar: true,
     showInHero: true,
@@ -92,8 +93,8 @@ export const navigationItems: NavItem[] = [
   {
     id: 'tasks',
     path: '/tasks',
-    label: 'Tasks',
-    heroLabel: 'On My Mind',
+    label: t('Tasks'),
+    heroLabel: t('On My Mind'),
     icon: ListTodo,
     showInSidebar: true,
     showInHero: true,
@@ -103,7 +104,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'projects',
     path: '/projects',
-    label: 'Projects',
+    label: t('Projects'),
     icon: FolderKanban,
     showInSidebar: true,
     showInHero: true,
@@ -113,7 +114,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'reports',
     path: '/reports',
-    label: 'Reports',
+    label: t('Reports'),
     icon: ClipboardList,
     showInSidebar: true,
     showInHero: true,
@@ -123,7 +124,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'content-engine',
     path: '/content-engine',
-    label: 'Content Engine',
+    label: t('Content Engine'),
     icon: Newspaper,
     showInSidebar: true,
     showInHero: true,
@@ -133,7 +134,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'journal',
     path: '/journal',
-    label: 'Journal',
+    label: t('Journal'),
     icon: BookOpen,
     showInSidebar: true,
     showInHero: true,
@@ -144,7 +145,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'voice',
     path: '/voice',
-    label: 'Voice',
+    label: t('Voice'),
     icon: Mic,
     showInSidebar: true,
     showInHero: true,
@@ -156,7 +157,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'images',
     path: '/images',
-    label: 'Images',
+    label: t('Images'),
     icon: Wand2,
     showInSidebar: true,
     showInHero: true,
@@ -166,7 +167,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'tools',
     path: '/tools',
-    label: 'Tools',
+    label: t('Tools'),
     icon: Wrench,
     showInSidebar: true,
     showInHero: true,
@@ -176,8 +177,8 @@ export const navigationItems: NavItem[] = [
   {
     id: 'agent-types',
     path: '/agent-types',
-    label: 'Agent Types',
-    heroLabel: 'Agents',
+    label: t('Agent Types'),
+    heroLabel: t('Agents'),
     icon: Bot,
     showInSidebar: true,
     showInHero: true,
@@ -187,7 +188,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'audit',
     path: '/audit',
-    label: 'Audit Log',
+    label: t('Audit Log'),
     icon: Activity,
     showInSidebar: true,
     showInHero: true,
@@ -197,7 +198,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'stats',
     path: '/stats',
-    label: 'Stats',
+    label: t('Stats'),
     icon: BarChart3,
     showInSidebar: true,
     showInHero: true,
@@ -207,7 +208,7 @@ export const navigationItems: NavItem[] = [
   {
     id: 'second-brain',
     path: '/second-brain',
-    label: 'Second Brain',
+    label: t('Second Brain'),
     icon: Brain,
     showInSidebar: true,
     showInHero: true,
@@ -229,12 +230,11 @@ export const getSidebarNavItems = (): NavItem[] => {
  * Get sidebar items grouped by their NavGroup
  */
 export const getSidebarGroups = (): { group: NavGroupMeta; items: NavItem[] }[] => {
-  const sidebarItems = getSidebarNavItems();
   return navGroups
     .sort((a, b) => a.order - b.order)
     .map(group => ({
       group,
-      items: sidebarItems.filter(item => item.group === group.id),
+      items: getSidebarNavItems().filter(item => item.group === group.id),
     }))
     .filter(g => g.items.length > 0);
 };

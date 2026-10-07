@@ -100,9 +100,9 @@ const DEFAULT_CONFIG: ClawBoardConfig = {
     backgroundColor: '#0f172a',
     surfaceColor: '#1e293b',
     textColor: '#e2e8f0',
-    sidebarTitle: 'ClawBoard',
-    loginTitle: 'Welcome to ClawBoard',
-    loginSubtitle: 'Your AI Dashboard',
+    sidebarTitle: 'Psytino AI Control Center',
+    loginTitle: 'Psytino AI Control Center',
+    loginSubtitle: 'AI 協作中心',
     faviconUrl: '/favicon.svg',
   },
   features: {
