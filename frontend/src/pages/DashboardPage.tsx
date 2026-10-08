@@ -10,6 +10,7 @@ import { SystemStatus } from '../components/dashboard/SystemStatus';
 import { ReportsCard } from '../components/dashboard/ReportsCard';
 import { Task } from '../types/task';
 import { authenticatedFetch } from '../utils/auth';
+import { t } from '../i18n/translate';
 import './DashboardPage.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
@@ -100,7 +101,7 @@ export const DashboardPage: React.FC = () => {
       }
     } catch (err) {
       console.error('Failed to fetch tasks:', err);
-      setError('Failed to load dashboard data.');
+      setError(t('Failed to load dashboard data.'));
     } finally {
       setLoading(false);
     }
@@ -109,8 +110,8 @@ export const DashboardPage: React.FC = () => {
   if (loading) {
     return (
       <div className="page-loading">
-        <div className="loading-spinner" aria-label="Loading dashboard" />
-        <p>Loading dashboard...</p>
+        <div className="loading-spinner" aria-label={t('Loading dashboard')} />
+        <p>{t('Loading dashboard...')}</p>
       </div>
     );
   }
@@ -121,7 +122,7 @@ export const DashboardPage: React.FC = () => {
         <div className="dashboard-error" role="alert">
           <span className="error-icon">⚠️</span>
           <p>{error}</p>
-          <button onClick={fetchSummary} className="retry-button">Retry</button>
+          <button onClick={fetchSummary} className="retry-button">{t('Retry')}</button>
         </div>
       </div>
     );
@@ -136,27 +137,27 @@ export const DashboardPage: React.FC = () => {
       <div className="dashboard-stats-grid">
         <StatsCard
           icon="💡"
-          label="Ideas"
+          label={t('Ideas')}
           value={summary.ideas}
-          description="things to explore"
+          description={t('things to explore')}
           color="purple"
           to="/tasks?focus=ideas"
         />
 
         <StatsCard
           icon="📝"
-          label="Todo"
+          label={t('Todo')}
           value={summary.todo}
-          description="ready to start"
+          description={t('ready to start')}
           color="blue"
           to="/tasks?focus=todo"
         />
 
         <StatsCard
           icon="🔄"
-          label="Progress"
+          label={t('Progress')}
           value={summary.inProgress}
-          description="actively working"
+          description={t('actively working')}
           color="orange"
           pulse={summary.inProgress > 0}
           to="/tasks?focus=in-progress"
@@ -164,9 +165,9 @@ export const DashboardPage: React.FC = () => {
 
         <StatsCard
           icon="⚠️"
-          label="Stuck"
+          label={t('Stuck')}
           value={summary.stuck}
-          description="needs attention"
+          description={t('needs attention')}
           color={summary.stuck > 0 ? 'red' : 'gray'}
           pulse={summary.stuck > 0}
           to="/tasks?focus=stuck"
@@ -174,18 +175,18 @@ export const DashboardPage: React.FC = () => {
 
         <StatsCard
           icon="✅"
-          label="Completed"
+          label={t('Completed')}
           value={summary.completed}
-          description={summary.recentCompleted > 0 ? `${summary.recentCompleted} recent` : 'all time'}
+          description={summary.recentCompleted > 0 ? `${summary.recentCompleted} ${t('recent')}` : t('all time')}
           color="green"
           to="/tasks?focus=completed"
         />
 
         <StatsCard
           icon="📦"
-          label="Archived"
+          label={t('Archived')}
           value={summary.archived}
-          description="filed away"
+          description={t('filed away')}
           color="gray"
           to="/tasks?focus=archived"
         />

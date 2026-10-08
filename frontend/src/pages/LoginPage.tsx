@@ -1,5 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { auth } from '../utils/auth';
+import { t } from '../i18n/translate';
 import { StatusOrb } from '../components/StatusOrb';
 import { useClawBoardConfig } from '../contexts/ClawBoardConfigContext';
 import './LoginPage.css';
@@ -50,7 +51,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
+              placeholder={t('Password')}
               className="login-input"
               autoFocus
               disabled={loading}
@@ -72,16 +73,16 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             {loading ? (
               <>
                 <span className="login-spinner" />
-                <span>Authenticating...</span>
+                <span>{t('Authenticating...')}</span>
               </>
             ) : (
-              <span>Login</span>
+              <span>{t('Login')}</span>
             )}
           </button>
         </form>
 
         <div className="login-footer">
-          <span className="login-version">Dashboard v1.2.0</span>
+          <span className="login-version">{t('Dashboard version')} v1.2.0</span>
         </div>
       </div>
     </div>

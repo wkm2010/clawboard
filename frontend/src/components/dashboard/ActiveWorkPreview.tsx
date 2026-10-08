@@ -1,4 +1,5 @@
 import { authenticatedFetch } from '../../utils/auth';
+import { t } from '../../i18n/translate';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, ChevronRight, CheckCircle2, Circle, RotateCw } from 'lucide-react';
@@ -84,10 +85,10 @@ export const ActiveWorkPreview: React.FC = () => {
     return (
       <div className="active-work-preview">
         <div className="active-work-preview-header">
-          <h3 className="active-work-preview-title">🔄 Currently Working On</h3>
+          <h3 className="active-work-preview-title">{t('🔄 Currently Working On')}</h3>
         </div>
         <div className="active-work-preview-loading">
-          <p>Loading...</p>
+          <p>{t('Loading...')}</p>
         </div>
       </div>
     );
@@ -97,16 +98,16 @@ export const ActiveWorkPreview: React.FC = () => {
     return (
       <div className="active-work-preview active-work-preview-idle">
         <div className="active-work-preview-header">
-          <h3 className="active-work-preview-title">🔄 Currently Working On</h3>
+          <h3 className="active-work-preview-title">{t('🔄 Currently Working On')}</h3>
         </div>
 
         <div className="active-work-preview-empty">
-          <p className="active-work-preview-empty-text">All caught up!</p>
-          <p className="active-work-preview-empty-hint">Nothing in progress right now</p>
+          <p className="active-work-preview-empty-text">{t('All caught up!')}</p>
+          <p className="active-work-preview-empty-hint">{t('Nothing in progress right now')}</p>
         </div>
 
         <Link to="/tasks" className="active-work-preview-cta">
-          View All Tasks
+          {t('View All Tasks')}
           <ChevronRight size={16} />
         </Link>
       </div>
@@ -119,7 +120,7 @@ export const ActiveWorkPreview: React.FC = () => {
 
       <div className="active-work-preview-header">
         <h3 className="active-work-preview-title">
-          🔄 Currently Working On ({inProgressTasks.length})
+          🔄 {t('Currently Working On')} ({inProgressTasks.length})
         </h3>
       </div>
 

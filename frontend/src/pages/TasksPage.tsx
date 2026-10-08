@@ -1,4 +1,5 @@
 import { authenticatedFetch } from '../utils/auth';
+import { t } from '../i18n/translate';
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Plus, Archive, Search } from 'lucide-react';
@@ -21,12 +22,12 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 const FILTERS_STORAGE_KEY = 'clawboard-task-filters';
 
 const COLUMN_LABELS: Record<ColumnKey, string> = {
-  ideas: 'Ideas / Plans',
-  todo: 'To Do',
-  'in-progress': 'In Progress',
-  stuck: 'Stuck / Review',
-  completed: 'Completed',
-  archived: 'Archived'
+  ideas: t('💡 Ideas / Plans'),
+  todo: t('📋 To Do'),
+  'in-progress': t('⚡ In Progress'),
+  stuck: t('🤔 Stuck / Review'),
+  completed: t('✅ Completed'),
+  archived: t('📦 Archived')
 };
 
 interface ColumnData {
@@ -524,7 +525,7 @@ export const TasksPage: React.FC = () => {
   }, []);
 
   const handleQuickAdd = async (status: string) => {
-    const title = prompt('Task title:');
+    const title = prompt(t('Task title:'));
     if (!title?.trim()) return;
     try {
       const response = await authenticatedFetch(`${API_BASE_URL}/tasks`, {
@@ -575,7 +576,7 @@ export const TasksPage: React.FC = () => {
   };
 
   const handleDeleteTask = async (taskId: string) => {
-    if (!confirm('Are you sure you want to delete this task?')) return;
+    if (!confirm(t('Are you sure you want to delete this task?'))) return;
     try {
       await authenticatedFetch(`${API_BASE_URL}/tasks/${taskId}`, { method: 'DELETE' });
       await refreshBoard();
@@ -599,7 +600,7 @@ export const TasksPage: React.FC = () => {
       }
     } catch (error) {
       console.error('Failed to spawn task:', error);
-      alert('Failed to spawn task');
+      alert(t('Failed to spawn task'));
     }
   };
 
@@ -687,10 +688,10 @@ export const TasksPage: React.FC = () => {
   const handleArchiveCompleted = async () => {
     const completedTasks = boardData.completed.items;
     if (completedTasks.length === 0) {
-      alert('No completed tasks to archive');
+      alert(t('No completed tasks to archive'));
       return;
     }
-    if (!confirm(`Archive ${completedTasks.length} completed task(s)?`)) return;
+    if (!confirm(`${t('Archive completed task(s)?')}`)) return;
 
     try {
       for (const t of completedTasks) {
@@ -707,7 +708,7 @@ export const TasksPage: React.FC = () => {
     return (
       <div className="page-loading">
         <div className="loading-spinner" />
-        <span>Loading tasks...</span>
+        <span>{t('Loading tasks...')}</span>
       </div>
     );
   }
@@ -718,19 +719,17 @@ export const TasksPage: React.FC = () => {
       <div className="tasks-page-main">
         <div className="tasks-page-header">
           <div className="tasks-page-header-title">
-            <h1>🧠 On My Mind</h1>
-            <p>
-              {visibleTaskCount} thing{visibleTaskCount !== 1 && 's'} in view{hiddenArchivedCount > 0 ? `, plus ${hiddenArchivedCount} archived` : ''}
-            </p>
+            <h1>🧠 {t('On My Mind')}</h1>
+            <p>{visibleTaskCount} {t('things in view')}{hiddenArchivedCount > 0 ? `，另有 ${hiddenArchivedCount} 項已封存` : ''}</p>
           </div>
           <div className="tasks-page-header-actions">
             <button
               className={`search-toggle-btn ${activeFilterCount > 0 ? 'has-filters' : ''} ${searchPanelOpen ? 'active' : ''}`}
               onClick={() => setSearchPanelOpen(!searchPanelOpen)}
-              title={activeFilterCount > 0 ? `${activeFilterCount} filter(s) active` : 'Search & Filter'}
+              title={activeFilterCount > 0 ? `${activeFilterCount} 項篩選已啟用` : t('Search & Filter')}
             >
               <Search size={18} />
-              <span className="search-toggle-label">Search</span>
+              <span className="search-toggle-label">{t('Search')}</span>
               {activeFilterCount > 0 && (
                 <span className="search-toggle-badge">{activeFilterCount}</span>
               )}
@@ -744,7 +743,7 @@ export const TasksPage: React.FC = () => {
               variant={showArchived ? 'primary' : 'secondary'}
               icon={<Archive size={18} />}
             >
-              {showArchived ? 'Hide Archived' : hiddenArchivedCount > 0 ? `Show Archived (${hiddenArchivedCount})` : 'Show Archived'}
+              {showArchived ? t('Hide Archived') : hiddenArchivedCount > 0 ? `${t('Show Archived')} (${hiddenArchivedCount})` : t('Show Archived')}
             </Button>
 
             <Button
@@ -752,7 +751,7 @@ export const TasksPage: React.FC = () => {
               variant="secondary"
               icon={<Archive size={18} />}
             >
-              Archive Completed
+              {t('Archive Completed')}
             </Button>
 
             <Button
@@ -760,7 +759,7 @@ export const TasksPage: React.FC = () => {
               variant="primary"
               icon={<Plus size={18} />}
             >
-              New Task
+              {t('New Task')}
             </Button>
           </div>
         </div>

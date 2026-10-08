@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { authenticatedFetch } from '../utils/auth';
+import { t } from '../i18n/translate';
 import './ReportsPage.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
@@ -33,14 +34,14 @@ const timeAgo = (dateStr: string): string => {
   const mins = Math.floor(diffMs / 60000);
   const hours = Math.floor(mins / 60);
   const days = Math.floor(hours / 24);
-  if (days > 0) return `${days}d ago`;
-  if (hours > 0) return `${hours}h ago`;
-  if (mins > 0) return `${mins}m ago`;
-  return 'Just now';
+  if (days > 0) return `${days} 日前`;
+  if (hours > 0) return `${hours} 小時前`;
+  if (mins > 0) return `${mins} 分鐘前`;
+  return '剛剛';
 };
 
 const formatDate = (dateStr: string): string => {
-  return new Date(dateStr).toLocaleDateString('en-GB', {
+  return new Date(dateStr).toLocaleDateString('zh-Hant-HK', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
@@ -142,8 +143,8 @@ export const ReportsPage: React.FC = () => {
   return (
     <div className="reports-page fade-in">
       <div className="reports-page-header">
-        <h1>📋 Reports</h1>
-        <span className="reports-page-count">{total} report{total !== 1 ? 's' : ''}</span>
+        <h1>📋 {t('Reports')}</h1>
+        <span className="reports-page-count">{total} {t('reports')}</span>
       </div>
 
       {/* Search & Filters */}
@@ -154,7 +155,7 @@ export const ReportsPage: React.FC = () => {
             <input
               type="text"
               className="reports-search-input"
-              placeholder="Search reports..."
+              placeholder={t('Search reports...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -177,7 +178,7 @@ export const ReportsPage: React.FC = () => {
             value={activeProject}
             onChange={(e) => setActiveProject(e.target.value)}
           >
-            <option value="">All Projects</option>
+            <option value="">{t('All Projects')}</option>
             {projects.map((p) => (
               <option key={p.id} value={p.id}>{p.name}</option>
             ))}
@@ -201,7 +202,7 @@ export const ReportsPage: React.FC = () => {
           {hasActiveFilters && (
             <button className="reports-clear-filters" onClick={clearFilters}>
               <X size={14} />
-              Clear filters
+              {t('Clear filters')}
             </button>
           )}
         </div>
@@ -211,14 +212,14 @@ export const ReportsPage: React.FC = () => {
       {loading ? (
         <div className="reports-loading">
           <div className="reports-spinner" />
-          <p>Loading reports...</p>
+          <p>{t('Loading reports...')}</p>
         </div>
       ) : reports.length === 0 ? (
         <div className="reports-empty">
           <span className="reports-empty-icon">📭</span>
-          <p>{hasActiveFilters ? 'No reports match your filters' : 'No reports yet'}</p>
+          <p>{hasActiveFilters ? t('No reports match your filters') : t('No reports yet')}</p>
           {hasActiveFilters && (
-            <button className="reports-clear-btn" onClick={clearFilters}>Clear filters</button>
+            <button className="reports-clear-btn" onClick={clearFilters}>{t('Clear filters')}</button>
           )}
         </div>
       ) : (
@@ -253,7 +254,7 @@ export const ReportsPage: React.FC = () => {
                       to={`/projects?open=${encodeURIComponent(report.project_name)}`}
                       className="report-card-project report-card-project-link"
                       onClick={(e) => e.stopPropagation()}
-                      title={`View project: ${report.project_name}`}
+                      title={t('View project:')}
                     >
                       📁 {report.project_name}
                     </Link>
@@ -280,10 +281,10 @@ export const ReportsPage: React.FC = () => {
             {loadingMore ? (
               <>
                 <div className="reports-btn-spinner" />
-                Loading...
+                {t('Loading...')}
               </>
             ) : (
-              'Load More'
+              t('Load More')
             )}
           </button>
         </div>

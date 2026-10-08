@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { authenticatedFetch } from '../../utils/auth';
+import { t } from '../../i18n/translate';
 import { Task } from '../../types/task';
 import './ProjectOverview.css';
 
@@ -91,7 +92,7 @@ export const ProjectOverview: React.FC = () => {
   return (
     <div className="project-overview">
       <div className="project-overview-header">
-        <h3>📁 Active Projects</h3>
+        <h3>{t('📁 Active Projects')}</h3>
       </div>
 
       <div className="project-overview-list">
@@ -113,12 +114,12 @@ export const ProjectOverview: React.FC = () => {
             </div>
 
             <div className="project-overview-stats">
-              <span>{project.totalTasks} tasks</span>
+              <span>{project.totalTasks} {t('tasks')}</span>
               {project.inProgressTasks > 0 && (
-                <span className="project-stat-active">{project.inProgressTasks} active</span>
+                <span className="project-stat-active">{project.inProgressTasks} {t('active')}</span>
               )}
               {project.stuckTasks > 0 && (
-                <span className="project-stat-stuck">{project.stuckTasks} stuck</span>
+                <span className="project-stat-stuck">{project.stuckTasks} {t('stuck')}</span>
               )}
             </div>
           </div>
@@ -126,7 +127,7 @@ export const ProjectOverview: React.FC = () => {
       </div>
 
       <Link to="/projects" className="project-overview-cta">
-        View All Projects
+        {t('View All Projects')}
         <ChevronRight size={16} />
       </Link>
     </div>

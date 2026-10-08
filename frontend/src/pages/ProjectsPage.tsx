@@ -1,4 +1,5 @@
 import { authenticatedFetch } from '../utils/auth';
+import { t } from '../i18n/translate';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Plus, Search, SlidersHorizontal } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -182,7 +183,7 @@ export const ProjectsPage: React.FC = () => {
     return (
       <div className="page-loading">
         <div className="loading-spinner" />
-        <span>Loading projects...</span>
+        <span>{t('Loading projects...')}</span>
       </div>
     );
   }
@@ -192,7 +193,7 @@ export const ProjectsPage: React.FC = () => {
       <div className="projects-page-loading">
         <div className="error-message">⚠️ {error}</div>
         <button className="retry-btn" onClick={() => { setLoading(true); setError(null); fetchProjects(); }}>
-          Retry
+          {t('Retry')}
         </button>
       </div>
     );
@@ -203,10 +204,9 @@ export const ProjectsPage: React.FC = () => {
       {/* Header */}
       <div className="projects-page-header">
         <div className="projects-page-header-title">
-          <h1>📁 Projects</h1>
+          <h1>📁 {t('Projects')}</h1>
           <p>
-            {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
-            {searchQuery && ` matching "${searchQuery}"`}
+            {filteredProjects.length} {t('projects')}{searchQuery && `（符合「${searchQuery}」）`}
           </p>
         </div>
         
@@ -216,7 +216,7 @@ export const ProjectsPage: React.FC = () => {
             variant="primary"
             icon={<Plus size={18} />}
           >
-            New Project
+            {t('New Project')}
           </Button>
         </div>
       </div>
@@ -227,7 +227,7 @@ export const ProjectsPage: React.FC = () => {
           <Search size={18} className="search-icon" />
           <input
             type="text"
-            placeholder="Search projects..."
+            placeholder={t('Search projects...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-input"
@@ -235,16 +235,16 @@ export const ProjectsPage: React.FC = () => {
         </div>
         
         <div className="projects-sort">
-          <label htmlFor="sort-select">Sort by:</label>
+          <label htmlFor="sort-select">{t('Sort by:')}</label>
           <select
             id="sort-select"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
             className="sort-select"
           >
-            <option value="activity">Last Activity</option>
-            <option value="name">Name</option>
-            <option value="progress">Progress</option>
+            <option value="activity">{t('Last Activity')}</option>
+            <option value="name">{t('Name')}</option>
+            <option value="progress">{t('Progress')}</option>
           </select>
         </div>
         
@@ -253,7 +253,7 @@ export const ProjectsPage: React.FC = () => {
           onClick={() => setShowFilters(!showFilters)}
         >
           <SlidersHorizontal size={18} />
-          Filters
+          {t('Filters')}
         </button>
       </div>
       
@@ -261,7 +261,7 @@ export const ProjectsPage: React.FC = () => {
       {showFilters && (
         <div className="projects-filters">
           <div className="filter-group">
-            <label>Status:</label>
+            <label>{t('Status:')}</label>
             <div className="filter-options">
               {['active', 'paused', 'completed', 'archived'].map(status => (
                 <button
@@ -269,19 +269,19 @@ export const ProjectsPage: React.FC = () => {
                   className={`filter-option ${statusFilter.includes(status) ? 'active' : ''}`}
                   onClick={() => toggleStatusFilter(status)}
                 >
-                  {status}
+                  {t(status)}
                 </button>
               ))}
             </div>
           </div>
           <div className="filter-group">
-            <label>Secret:</label>
+            <label>{t('Secret:')}</label>
             <div className="filter-options">
               <button
                 className={`filter-option filter-secret ${showSecretProjects ? 'active' : ''}`}
                 onClick={() => setShowSecretProjects(!showSecretProjects)}
               >
-                🔒 Show Secret
+                {t('🔒 Show Secret')}
               </button>
             </div>
           </div>
@@ -291,15 +291,15 @@ export const ProjectsPage: React.FC = () => {
       {/* Projects Grid */}
       {filteredProjects.length === 0 ? (
         <div className="projects-empty">
-          <p>No projects found</p>
-          {searchQuery && <p className="empty-hint">Try adjusting your search or filters</p>}
+          <p>{t('No projects found')}</p>
+          {searchQuery && <p className="empty-hint">{t('Try adjusting your search or filters')}</p>}
           {!searchQuery && projects.length === 0 && (
             <Button
               onClick={() => setShowCreateModal(true)}
               variant="primary"
               icon={<Plus size={18} />}
             >
-              Create Your First Project
+              {t('Create Your First Project')}
             </Button>
           )}
         </div>

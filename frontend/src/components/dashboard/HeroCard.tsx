@@ -1,14 +1,15 @@
 import React from 'react';
+import { t } from '../../i18n/translate';
 import './HeroCard.css';
 
 export const HeroCard: React.FC = () => {
   const currentHour = new Date().getHours();
-  let greeting = '👋 Good morning';
-  
+  let greeting = `👋 ${t('Good morning')}`;
+
   if (currentHour >= 12 && currentHour < 17) {
-    greeting = '☀️ Good afternoon';
+    greeting = `☀️ ${t('Good afternoon')}`;
   } else if (currentHour >= 17) {
-    greeting = '🌙 Good evening';
+    greeting = `🌙 ${t('Good evening')}`;
   }
 
   return (
@@ -17,7 +18,7 @@ export const HeroCard: React.FC = () => {
       
       <div className="hero-card-content">
         <h1 className="hero-greeting">{greeting}</h1>
-        <p className="hero-tagline">Your personal workspace & command center</p>
+        <p className="hero-tagline">{t('Your personal workspace & command center')}</p>
       </div>
     </div>
   );

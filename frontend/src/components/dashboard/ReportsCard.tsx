@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { authenticatedFetch } from '../../utils/auth';
+import { t } from '../../i18n/translate';
 import './ReportsCard.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
@@ -22,10 +23,10 @@ const timeAgo = (dateStr: string): string => {
   const mins = Math.floor(diffMs / 60000);
   const hours = Math.floor(mins / 60);
   const days = Math.floor(hours / 24);
-  if (days > 0) return `${days}d ago`;
-  if (hours > 0) return `${hours}h ago`;
-  if (mins > 0) return `${mins}m ago`;
-  return 'Just now';
+  if (days > 0) return `${days} 日前`;
+  if (hours > 0) return `${hours} 小時前`;
+  if (mins > 0) return `${mins} 分鐘前`;
+  return '剛剛';
 };
 
 export const ReportsCard: React.FC = () => {
@@ -57,7 +58,7 @@ export const ReportsCard: React.FC = () => {
       <div className="reports-card">
         <div className="reports-card-loading">
           <div className="reports-card-spinner" />
-          <span>Loading reports...</span>
+          <span>{t('Loading reports...')}</span>
         </div>
       </div>
     );
@@ -67,10 +68,10 @@ export const ReportsCard: React.FC = () => {
     return (
       <div className="reports-card">
         <div className="reports-card-header">
-          <h3>📋 Reports</h3>
+          <h3>{t('📋 Reports')}</h3>
         </div>
         <div className="reports-card-empty">
-          <span>No reports yet</span>
+          <span>{t('No reports yet')}</span>
         </div>
       </div>
     );
@@ -79,12 +80,12 @@ export const ReportsCard: React.FC = () => {
   return (
     <div className="reports-card">
       <div className="reports-card-header">
-        <h3>📋 Reports</h3>
+        <h3>{t('📋 Reports')}</h3>
         <div
           className="reports-card-view-all"
           onClick={() => navigate('/reports')}
         >
-          <span>View All Reports</span>
+          <span>{t('View All Reports')}</span>
           <ChevronRight size={16} className="reports-card-arrow" />
         </div>
       </div>

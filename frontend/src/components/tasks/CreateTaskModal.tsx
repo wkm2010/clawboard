@@ -1,4 +1,5 @@
 import { authenticatedFetch } from '../../utils/auth';
+import { t } from '../../i18n/translate';
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Plus, Trash2 } from 'lucide-react';
@@ -206,11 +207,11 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 
   return createPortal(
     <div className="create-task-overlay" onClick={handleBackdropClick}>
-      <div className="create-task-modal edit-task-modal" ref={modalRef} role="dialog" aria-modal="true" aria-label="Task modal">
+      <div className="create-task-modal edit-task-modal" ref={modalRef} role="dialog" aria-modal="true" aria-label={t('Task modal')}>
         {/* Header */}
         <div className="create-task-modal-header">
-          <h2>Create New Task</h2>
-          <button onClick={onClose} className="create-task-close-btn" aria-label="Close modal">
+          <h2>{t('Create New Task')}</h2>
+          <button onClick={onClose} className="create-task-close-btn" aria-label={t('Close modal')}>
             <X size={22} />
           </button>
         </div>
@@ -219,32 +220,32 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
         <form onSubmit={handleSubmit} className="create-task-form edit-task-form">
           {/* Title */}
           <div className="create-task-field">
-            <label className="create-task-label">Title *</label>
+            <label className="create-task-label">{t('Title *')}</label>
             <input
               ref={titleRef}
               type="text"
               value={title}
               onChange={(e) => { setTitle(e.target.value); setError(''); }}
               className="create-task-input"
-              placeholder="What needs to be done?"
+              placeholder={t('What needs to be done?')}
             />
             {error && <span className="edit-task-error">{error}</span>}
           </div>
 
           {/* Description */}
           <div className="create-task-field">
-            <label className="create-task-label">Description (Markdown)</label>
+            <label className="create-task-label">{t('Description (Markdown)')}</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="create-task-textarea edit-task-textarea-large"
-              placeholder="Rich description with markdown support..."
+              placeholder={t('Rich description with markdown support...')}
             />
           </div>
 
           <div className="edit-task-row">
             <div className="create-task-field" style={{ flex: 1 }}>
-              <label className="create-task-label">Definition of Done</label>
+              <label className="create-task-label">{t('Definition of Done')}</label>
               <textarea
                 value={definitionOfDone}
                 onChange={(e) => setDefinitionOfDone(e.target.value)}
@@ -272,33 +273,33 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           {/* Row: Status + Priority */}
           <div className="edit-task-row">
             <div className="create-task-field" style={{ flex: 1 }}>
-              <label className="create-task-label">Status</label>
+              <label className="create-task-label">{t('Status')}</label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as TaskStatus)}
                 className="create-task-select"
               >
-                <option value="ideas">💡 Ideas / Plans</option>
-                <option value="todo">📋 To Do</option>
-                <option value="in-progress">⚡ In Progress</option>
-                <option value="stuck">🤔 Stuck / Review</option>
-                <option value="completed">✅ Completed</option>
-                <option value="archived">📦 Archived</option>
+                <option value="ideas">{t('💡 Ideas / Plans')}</option>
+                <option value="todo">{t('📋 To Do')}</option>
+                <option value="in-progress">{t('⚡ In Progress')}</option>
+                <option value="stuck">{t('🤔 Stuck / Review')}</option>
+                <option value="completed">{t('✅ Completed')}</option>
+                <option value="archived">{t('📦 Archived')}</option>
               </select>
             </div>
 
             <div className="create-task-field" style={{ flex: 1 }}>
-              <label className="create-task-label">Priority</label>
+              <label className="create-task-label">{t('Priority')}</label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as TaskPriority)}
                 className="create-task-select"
               >
-                <option value="urgent">🔴 Urgent</option>
-                <option value="high">🟠 High</option>
-                <option value="normal">🔵 Normal</option>
-                <option value="low">⚪ Low</option>
-                <option value="someday">🟣 Someday</option>
+                <option value="urgent">{t('🔴 Urgent')}</option>
+                <option value="high">{t('🟠 High')}</option>
+                <option value="normal">{t('🔵 Normal')}</option>
+                <option value="low">{t('⚪ Low')}</option>
+                <option value="someday">{t('🟣 Someday')}</option>
               </select>
             </div>
           </div>
@@ -306,13 +307,13 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           {/* Row: Project + Tags */}
           <div className="edit-task-row">
             <div className="create-task-field" style={{ flex: 1 }}>
-              <label className="create-task-label">Project</label>
+              <label className="create-task-label">{t('Project')}</label>
               <select
                 value={project}
                 onChange={(e) => setProject(e.target.value)}
                 className="create-task-select"
               >
-                <option value="">No project</option>
+                <option value="">{t('No project')}</option>
                 {/* Projects from API */}
                 {apiProjects.map(p => (
                   <option key={p.id} value={p.name}>{p.name}</option>
@@ -326,7 +327,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             </div>
 
             <div className="create-task-field" style={{ flex: 1 }}>
-              <label className="create-task-label">Tags (comma-separated)</label>
+              <label className="create-task-label">{t('Tags (comma-separated)')}</label>
               <input
                 type="text"
                 list="tag-suggestions"
@@ -343,30 +344,30 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 
           {/* Execution Profile */}
           <div className="edit-task-section">
-            <label className="create-task-label">Execution Profile</label>
+            <label className="create-task-label">{t('Execution Profile')}</label>
             <div className="edit-task-row">
               <div className="create-task-field" style={{ flex: 1 }}>
-                <label className="create-task-label">Run Mode</label>
+                <label className="create-task-label">{t('Run Mode')}</label>
                 <select
                   value={executionMode}
                   onChange={(e) => setExecutionMode(e.target.value as TaskExecutionMode)}
                   className="create-task-select"
                 >
                   {TASK_EXECUTION_MODE_OPTIONS.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
                   ))}
                 </select>
               </div>
 
               <div className="create-task-field" style={{ flex: 1 }}>
-                <label className="create-task-label">Harness</label>
+                <label className="create-task-label">{t('Harness')}</label>
                 <select
                   value={executionHarness}
                   onChange={(e) => setExecutionHarness(e.target.value as TaskExecutionHarness)}
                   className="create-task-select"
                 >
                   {TASK_EXECUTION_HARNESS_OPTIONS.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
                   ))}
                 </select>
                 <div className="edit-task-toggle-hint">
@@ -375,14 +376,14 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
               </div>
 
               <div className="create-task-field" style={{ flex: 1 }}>
-                <label className="create-task-label">Access Profile</label>
+                <label className="create-task-label">{t('Access Profile')}</label>
                 <select
                   value={accessProfile}
                   onChange={(e) => setAccessProfile(e.target.value as TaskAccessProfile)}
                   className="create-task-select"
                 >
                   {TASK_ACCESS_PROFILE_OPTIONS.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
                   ))}
                 </select>
                 <div className="edit-task-toggle-hint">
@@ -391,14 +392,14 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
               </div>
             </div>
             <div className="create-task-field">
-              <label className="create-task-label">Planning Mode</label>
+              <label className="create-task-label">{t('Planning Mode')}</label>
               <select
                 value={planningMode}
                 onChange={(e) => setPlanningMode(e.target.value as TaskPlanningMode)}
                 className="create-task-select"
               >
                 {TASK_PLANNING_MODE_OPTIONS.map(opt => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
                 ))}
               </select>
               <div className="edit-task-toggle-hint">
@@ -409,8 +410,8 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 
           {/* Capability Requirements */}
           <fieldset className="create-task-field task-capabilities-fieldset">
-            <legend className="create-task-label">Extra Required Capabilities</legend>
-            <div className="task-capabilities-grid" role="group" aria-label="Extra required capabilities">
+            <legend className="create-task-label">{t('Extra Required Capabilities')}</legend>
+            <div className="task-capabilities-grid" role="group" aria-label={t('Extra required capabilities')}>
               {TASK_CAPABILITY_OPTIONS.map(cap => {
                 const derived = derivedCapabilities.includes(cap);
                 const checked = derived || requiredCapabilities.includes(cap);
@@ -430,7 +431,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                     <span className="task-capability-meta">
                       <span className="task-capability-name">{cap}</span>
                       <span className="task-capability-hint">
-                        {derived ? 'Included by the selected access profile' : 'Request this capability in addition to the access profile'}
+                        {derived ? t('Included by the selected access profile') : t('Request this capability in addition to the access profile')}
                       </span>
                     </span>
                   </label>
@@ -448,35 +449,35 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                 className="edit-task-checkbox"
               />
               <span className="edit-task-toggle-text">
-                🔓 Allow spawn-time overrides
-                <span className="edit-task-toggle-hint">Let the orchestrator override mode, access profile, model, and extra capabilities when spawning.</span>
+                {t('🔓 Allow spawn-time overrides')}
+                <span className="edit-task-toggle-hint">{t('Let the orchestrator override mode, access profile, model, and extra capabilities when spawning.')}</span>
               </span>
             </label>
           </div>
 
           <div className="create-task-field">
-            <label className="create-task-label">AI Model</label>
+            <label className="create-task-label">{t('AI Model')}</label>
             <select
               value={model}
               onChange={(e) => setModel(e.target.value)}
               className="create-task-select"
             >
               {modelOptions.map(opt => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                <option key={opt.value} value={opt.value}>{t(opt.label)}</option>
               ))}
             </select>
           </div>
 
           {/* Agent Persona */}
           <div className="create-task-field">
-            <label className="create-task-label">Agent Persona *</label>
+            <label className="create-task-label">{t('Agent Persona *')}</label>
             <select
               value={agentTypeId}
               onChange={e => { setAgentTypeId(e.target.value); setError(''); }}
               className="create-task-select"
               required
             >
-              <option value="">— Select agent persona —</option>
+              <option value="">{t('— Select agent persona —')}</option>
               {agentTypes.map(at => (
                 <option key={at.id} value={at.id}>{at.name} ({at.category})</option>
               ))}
@@ -493,8 +494,8 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                 className="edit-task-checkbox"
               />
               <span className="edit-task-toggle-text">
-                {autoStart ? '⚡ Auto-pickup enabled' : 'Auto-pickup disabled'}
-                <span className="edit-task-toggle-hint">{autoStart ? 'Bot can pick this up during heartbeats' : 'Bot will NOT pick this up on its own (default)'}</span>
+                {autoStart ? t('⚡ Auto-pickup enabled') : t('Auto-pickup disabled')}
+                <span className="edit-task-toggle-hint">{autoStart ? t('Bot can pick this up during heartbeats') : t('Bot will NOT pick this up on its own (default)')}</span>
               </span>
             </label>
           </div>
@@ -508,7 +509,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                 value={blockedReason}
                 onChange={(e) => setBlockedReason(e.target.value)}
                 className="create-task-input"
-                placeholder="Why is this stuck?"
+                placeholder={t('Why is this stuck?')}
               />
             </div>
           )}
@@ -547,7 +548,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                   onChange={(e) => setNewSubtask(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddSubtask(); } }}
                   className="create-task-input"
-                  placeholder="Add subtask... (Enter to add)"
+                  placeholder={t('Add subtask... (Enter to add)')}
                 />
                 <button type="button" className="edit-task-add-btn" onClick={handleAddSubtask}>
                   <Plus size={16} />
@@ -558,8 +559,8 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 
           {/* Links Section */}
           <div className="edit-task-section">
-            <label className="create-task-label">Links ({links.length})</label>
-            <div className="edit-task-toggle-hint">Use link type <strong>Report</strong> for long-form planning or investigation docs stored in Reports.</div>
+            <label className="create-task-label">{t('Links')} ({links.length})</label>
+            <div className="edit-task-toggle-hint">{t('Use link type')} <strong>{t('Report')}</strong> {t('for long-form planning or investigation docs stored in Reports.')}</div>
             <div className="edit-task-links">
               {links.map((link, i) => (
                 <div key={i} className="edit-task-link-item">
@@ -586,7 +587,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                   className="create-task-select edit-task-link-type-select"
                 >
                   {LINK_TYPE_OPTIONS.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.icon} {opt.label}</option>
+                    <option key={opt.value} value={opt.value}>{opt.icon} {t(opt.label)}</option>
                   ))}
                 </select>
                 <input
@@ -594,7 +595,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                   value={newLinkTitle}
                   onChange={(e) => setNewLinkTitle(e.target.value)}
                   className="create-task-input"
-                  placeholder={newLinkType === 'report' ? 'Report title' : 'Link title'}
+                  placeholder={newLinkType === 'report' ? t('Report title') : t('Link title')}
                 />
                 <input
                   type="text"
@@ -602,7 +603,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                   onChange={(e) => setNewLinkUrl(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddLink(); } }}
                   className="create-task-input"
-                  placeholder={newLinkType === 'report' ? 'Paste /dashboard/reports/... URL' : 'URL or path'}
+                  placeholder={newLinkType === 'report' ? t('Paste /dashboard/reports/... URL') : t('URL or path')}
                 />
                 <button type="button" className="edit-task-add-btn" onClick={handleAddLink}>
                   <Plus size={16} />
@@ -614,10 +615,10 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           {/* Actions */}
           <div className="create-task-actions">
             <button type="button" onClick={onClose} className="create-task-btn create-task-btn-cancel">
-              Cancel
+              {t('Cancel')}
             </button>
             <button type="submit" className="create-task-btn create-task-btn-submit">
-              Create Task
+              {t('Create Task')}
             </button>
           </div>
         </form>
