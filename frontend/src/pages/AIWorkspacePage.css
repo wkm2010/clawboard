@@ -1,0 +1,13 @@
+.ai-workspace { max-width: 1100px; padding: 24px; color: var(--text-primary, inherit); }
+.ai-runtime, .ai-task-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin: 16px 0; }
+.ai-workspace form, .ai-task-card { border: 1px solid var(--border-color, #394353); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+.ai-workspace form { display: grid; gap: 10px; }
+.ai-workspace textarea, .ai-workspace select, .ai-workspace input:not([type=radio]) { padding: 10px; color: inherit; background: var(--bg-secondary, #18202d); border: 1px solid var(--border-color, #394353); border-radius: 6px; }
+.ai-workspace button { padding: 10px 16px; cursor: pointer; border-radius: 6px; }
+.ai-workspace button:disabled { opacity: .5; cursor: not-allowed; }
+.ai-workspace a { color: var(--accent-color, #79c5ff); }
+.ai-prewrap { white-space: pre-wrap; overflow-wrap: anywhere; }
+.ai-human-gate label { display: block; margin: 8px 0; }
+.ai-human-gate textarea { display: block; width: 100%; }
+.ai-workspace [role=alert] { color: #ffadad; }
+.ai-workspace [role=status] { color: #a3dfbc; }

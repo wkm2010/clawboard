@@ -69,6 +69,10 @@ export const navGroups: NavGroupMeta[] = [
  * Add new pages here and they'll automatically appear in both sidebar and hero.
  */
 export const navigationItems: NavItem[] = [
+  {
+    id: 'ai-workspace', path: '/ai-workspace', label: 'AI 工作中心', icon: Bot,
+    showInSidebar: true, showInHero: true, order: 0.5, group: 'main',
+  },
   // === Main group (always visible, not collapsible) ===
   {
     id: 'dashboard',

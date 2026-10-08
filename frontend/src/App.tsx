@@ -5,6 +5,7 @@ import { Sidebar } from './components/Sidebar';
 import { useRealtimeStatus } from './hooks/useRealtimeStatus';
 import { DashboardPage } from './pages/DashboardPage';
 import { TasksPage } from './pages/TasksPage';
+import { AIWorkspacePage } from './pages/AIWorkspacePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { AuditPage } from './pages/AuditPage';
 import { SessionsPage } from './pages/SessionsPage';
@@ -125,6 +126,7 @@ function AppRoutes({ config }: { config: ReturnType<typeof useClawBoardConfig>['
     <Routes>
       {/* Core routes */}
       <Route path="/" element={<DashboardPage />} />
+      {config.features.taskBoard && <Route path="/ai-workspace" element={<AIWorkspacePage />} />}
       {config.features.taskBoard && <Route path="/tasks" element={<TasksPage />} />}
       {config.features.taskBoard && <Route path="/tasks/:taskId" element={<TasksPage />} />}
       {config.features.projects && <Route path="/projects" element={<ProjectsPage />} />}
