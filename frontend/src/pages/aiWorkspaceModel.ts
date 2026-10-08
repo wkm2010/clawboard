@@ -30,7 +30,7 @@ export function createSimpleTask(description: string, executor: Executor, system
     definitionOfDone: ['按完整描述完成要求；未能完成的項目必須列出。', '以實際測試或可核對證據驗證成果。', '保存結果摘要、驗證、錯誤及相關 Report。'],
     constraints: ['遵守 Task ownership；未領取不得執行。', '不自動授予 elevated 權限，不修改 Gateway 或 credentials。', '涉及人類決策時停止，記錄問題、選項、推薦及風險。'],
     tags: ['ai-workspace'], notes: '由 AI 工作中心建立；自動領取關閉。等待經驗證的領取／執行機制。',
-    subtasks: [], links: [], sessionRefs: [], blockedBy: [], dependsOn: [], maxRetries: 0,
+    subtasks: [], links: [], sessionRefs: [], blockedBy: [], dependsOn: [], maxRetries: 1,
   };
 }
 
